@@ -67,8 +67,7 @@ def extacrct_lines_change_table_to_df(game_info):
     """
     function extract the important data from a div of a game 
     :param game_info: bs4.element.Tag - the div game_info of a game included table of lines change 
-    :return team_name0: str - the name of the home team
-    :return team_nameq: str - the name of the home team
+    :return team_name: str - the name of the home team
     :return: data frame - table with the lines change
     """    
     missing_change_line = False # this mean the no team has plus and the line in this game didn't change
