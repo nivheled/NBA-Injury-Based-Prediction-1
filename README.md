@@ -7,3 +7,5 @@ https://www.bankerim.co.il/%D7%9E%D7%A9%D7%97%D7%A7%D7%99%D7%9D/%D7%9E%D7%A9%D7%
 https://www.rotoworld.com/basketball/nba/player-news/injuries
 
 Later there will be tweets from Twitter about player injuries and bet lines from various sites.
+
+This site was built using [GitHub Pages](https://official.nba.com/nba-injury-report-2019-20-season/)
