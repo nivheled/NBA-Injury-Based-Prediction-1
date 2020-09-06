@@ -326,6 +326,7 @@ def extarct_official_injury_report(start_date,end_date):
                           
     return full_df
 
+#main
 start_date = '2018-12-17'
 end_date = '2020-09-04'
 df = extarct_official_injury_report(start_date,end_date)
