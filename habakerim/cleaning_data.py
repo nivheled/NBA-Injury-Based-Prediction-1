@@ -24,11 +24,12 @@ def cleaning_and_processing(df):
     df['guest'] = df['guest'].astype('category')
     df['guest'] = df['guest'].apply(lambda x:team_names_dict[x])
     
-    df['time'] = df['time and date'].apply(lambda x: x[0:5])
+    df['date and time'] = df['time and date'].apply(lambda x:datetime.datetime.strptime(x, '%H:%M %d.%m.%Y'))
     
-    df['game_date'] = df['time and date'].apply(lambda x: x[6:])
-    df['game_date']= pd.to_datetime(df['game_date'],format='%d.%m.%Y') 
-    
+ 
+    df['line change date and hour'] = df['date'] + ' ' +  df['hour']
+    df['line change date and hour'] = df['line change date and hour'].apply(lambda x:datetime.datetime.strptime(x,'%d/%m/%Y %H:%M'))
+
     df['home_score'] = df['final_score'].apply(lambda x:int(x.partition("-")[0][:-1]))
     df['guest_score'] = df['final_score'].apply(lambda x:int(x.partition("-")[2][:]))
     
@@ -46,7 +47,6 @@ def cleaning_and_processing(df):
     del df['bet_guest']
     del df['winner_temp']
     
-    df = df[['game_date', 'time','home','guest','home_score','guest_score','date','hour','1','X','2','advantage','winner']]
+    df = df[['date and time','home','guest','home_score','guest_score','line change date and hour','1','X','2','advantage','winner']]
     
     return df
-    
