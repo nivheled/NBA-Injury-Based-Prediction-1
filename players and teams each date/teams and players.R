@@ -1,8 +1,8 @@
 library(data.table)
 library(sqldf)
 
-games <- fread("C:/Users/97254/Desktop/winner project/kaggle data set/games.csv")
-games_details <- fread("C:/Users/97254/Desktop/winner project/kaggle data set/games_details.csv")
+games <- fread(".../games.csv")
+games_details <- fread(".../games_details.csv")
 
 games <- games[,c('GAME_DATE_EST','GAME_ID')]
 games_details <- games_details[,c('GAME_ID','TEAM_ABBREVIATION','PLAYER_NAME')]
@@ -57,4 +57,4 @@ teams_players$start_date <- as.Date(teams_players$start_date ,origin ="1970-01-0
 teams_players$end_date <- as.Date(teams_players$end_date ,origin ="1970-01-01")
 
 
-write.csv(teams_players,"C:/Users/97254/Desktop/winner project/datasets/players_teams.csv", row.names = FALSE)
+write.csv(teams_players,".../players_teams.csv", row.names = FALSE)
