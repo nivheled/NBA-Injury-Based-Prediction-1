@@ -1,7 +1,7 @@
 # NBA official injury report
 We want to group all the reports into one big dataframe. We ran into some issues:
 1. The NBA official injury report has 5 differnt formats since it started publishing:
-
+<space>
 - 2018/12/17 - 2019/11/14 format:
 [Game Date, Game Time, Matchup, Team, Player Name, Category, Reason, Current Status, Previous Status]
 ![1](https://user-images.githubusercontent.com/70581662/94700143-d5d30280-0343-11eb-94ea-cc2fc85a4545.png)
