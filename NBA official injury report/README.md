@@ -3,7 +3,6 @@ The NBA official injury report has 5 differnt formats since it started publishin
 
 - 2018/12/17 - 2019/11/14 format:
 [Game Date, Game Time, Matchup, Team, Player Name, Category, Reason, Current Status, Previous Status]
-![Screenshot 2020-09-23 143359](https://user-images.githubusercontent.com/70581662/94007301-ed414700-fda9-11ea-92e0-83e134d7f62e.png)
 ![1](https://user-images.githubusercontent.com/70581662/94700143-d5d30280-0343-11eb-94ea-cc2fc85a4545.png)
 
 - 2019/12/17 format:
