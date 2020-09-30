@@ -21,7 +21,7 @@ The NBA official injury report has 5 differnt formats since it started publishin
 [Game Date, Game Time, Matchup, Team, Player Name, Current Status, Reason]
 ![5](https://user-images.githubusercontent.com/70581662/94700208-e1bec480-0343-11eb-9113-078d5725c992.png)
 
-- We have another problem because we are converting from a pdf file to a pandas dataframe, The conversion is not done properly and not everything is in the right place. We fixed the problem by shift row to the right according to the right pattern. We also filled in NA values. 
+- We have another problem because we are converting from a pdf file to a pandas dataframe, The conversion is not done properly and not everything is in the right place. We fixed the problem by shift rows to the right according to the right pattern. We also filled in NA values. 
 At the end of the dataframe looks like this:
 ![full](https://user-images.githubusercontent.com/70581662/94701872-cfde2100-0345-11eb-890f-ef5bc2ce1c27.png)
 
