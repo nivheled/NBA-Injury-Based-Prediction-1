@@ -27,3 +27,6 @@ At the end of the dataframe looks like this:
 ![full](https://user-images.githubusercontent.com/70581662/94701872-cfde2100-0345-11eb-890f-ef5bc2ce1c27.png)
 
 
+Now we only have left to clean the dataset.
+
+
