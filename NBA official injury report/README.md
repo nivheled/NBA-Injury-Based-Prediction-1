@@ -1,5 +1,8 @@
 # NBA official injury report
-We want to group all the reports into one big dataframe. We ran into some issues:
+The NBA Association requires the teams to publish 3 times a day the players' status for the next game.
+While trying to collect this data, our first goal was to gather all the infomarion in one big data frame, from which we can later train our model.
+During this process, we run into few problems.
+
 1. The NBA official injury report has 5 differnt formats since it started publishing:
 
 - 2018/12/17 - 2019/11/14 format:
@@ -32,6 +35,5 @@ At the end of the dataframe looks like this:
 ![full](https://user-images.githubusercontent.com/70581662/94701872-cfde2100-0345-11eb-890f-ef5bc2ce1c27.png)
 <br />
 
-Now we only have left to clean the dataset.
 
 
