@@ -30,10 +30,13 @@ During this process, we run into few problems.
 ![5](https://user-images.githubusercontent.com/70581662/94700208-e1bec480-0343-11eb-9113-078d5725c992.png)
 <br />
 
-2. Because we are converting from a pdf file to a pandas dataframe, The conversion is not done properly and not everything is in the right place. We fixed the problem by shift rows to the right according to the right pattern. We also filled in NA values. 
-At the end of the dataframe looks like this:
+2. Because we are converting from a pdf file to a pandas dataframe, The conversion is not done properly and not everything is in the right place. We fixed the problem by shift rows to the right according to the right pattern.
+At this stage, the dataframe looks like this:
 ![full](https://user-images.githubusercontent.com/70581662/94701872-cfde2100-0345-11eb-890f-ef5bc2ce1c27.png)
 <br />
 
+As you can see, every cell is in the right column, but now it's time to fill the NAs, to clean the data (team name, date & time and more) and to decide about one identical pattern that will guide us in every data we will scrape.
+
+After the cleaning (and quiet long) process, which you can fully see [here](https://github.com/nivniv123/NBA-betting-project/blob/master/NBA%20official%20injury%20report/Injury%20Report%20-%20Full%20Data%20Cleaning.py), our injury report is well organized:
 
 
