@@ -1,8 +1,12 @@
+# Using R to extract teams squad at specific time
+
 library(data.table)
 library(sqldf)
 
+# reading the csv of squads
 games <- fread(".../games.csv")
 games_details <- fread(".../games_details.csv")
+
 
 games <- games[,c('GAME_DATE_EST','GAME_ID')]
 games_details <- games_details[,c('GAME_ID','TEAM_ABBREVIATION','PLAYER_NAME')]
@@ -11,6 +15,8 @@ games_details <- games_details[,c('GAME_ID','TEAM_ABBREVIATION','PLAYER_NAME')]
 games$GAME_DATE_EST <- as.Date(games$GAME_DATE_EST,format = "%Y- %m- %d")
 games$GAME_DATE_EST <- as.numeric(games$GAME_DATE_EST)
 
+
+#joining on games ID's
 
 teams_players <- sqldf("select PLAYER_NAME as player,TEAM_ABBREVIATION as team,GAME_DATE_EST as date
       from games_details as gd join games as g on gd.GAME_ID = g.GAME_ID")
@@ -24,7 +30,7 @@ team <- teams_players[1,2]
 num<- 1
 
 
-# It is not recommended to use for loop in r dataframe, it is super slowly
+# Note that it is not recommended to use "for" loop in R dataframe due to poor runing time
 
 for (row in 1:nrow(teams_players)){
   if(teams_players[row,1] == player){
