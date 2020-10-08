@@ -1,10 +1,10 @@
-#importing all the required packages
 import pandas as pd
 import numpy as np
 import tabula
 import datetime
 import requests
 import re
+
 
 #get the time out of string
 def game_time_pattern(val):
@@ -25,7 +25,6 @@ def player_name_pattern(val):
     return False
 
 #check if a cell belongs to the "Category" column
-
 def category_pattern(val):
     categories = ["Injury/Illness", "Not With Team", "G League Team","G League - Two-Way","G League - On Assignment", "Personal Reasons",
                   "League Suspension","NOT YET SUBMITTED", "Coach's Decision", "Trade Pending", "Rest"]
@@ -34,15 +33,13 @@ def category_pattern(val):
     return False
 
 #check if a cell belongs to the "Status" column
-
 def reason_pattern(val):
     status = ["Out", "Doubtful", "Questionable", "Available", "Probable"]
     if val in status:
         return False
     return True
 
-#check if a cell belongs to the "Team" column
-# by building a list of all NBA teams
+#check if a cell belongs to the "Team" column by building a list of all NBA teams
 def teams_pattern(val):
     
     nba_teams = ["Atlanta Hawks",
@@ -82,8 +79,8 @@ def teams_pattern(val):
         return True
     return False
 
-#check if a cell belongs to the "Current Status" column
 
+#check if a cell belongs to the "Current Status" column
 def current_stat_pattern(val):
     status = ["Out", "Doubtful", "Questionable", "Available", "Probable"]
     if (val in status):
@@ -91,8 +88,7 @@ def current_stat_pattern(val):
     return False
 
 #function that matches each column to it's pattern
-
-def shift_by_pattern(cell, col): 
+def shift_by_pattern(cell, col): #function that check patterns
     
     pattern = None
     
@@ -125,13 +121,12 @@ def shift_by_pattern(cell, col):
 
 
 
-# locating each variable in it's right cell using the patterns above
-#input: df of NBA injury report
-#output: fixed df of the NBA official injury report 
-
-
 def move_cell_right(df):
-
+    """
+    function that locating each variable in it's right cell using the patterns above
+    :param df: data frame - Data frame fo NBA injury report
+    :return: data frame - Fixed data frameof the NBA official injury report 
+    """
     if (df.shape[1]==11|df.shape[1]==10):
         for row in range(df.shape[0]):
             for col in range(7):
@@ -150,11 +145,12 @@ def move_cell_right(df):
                     df.iloc[[row],col:]= df.iloc[[row],col:].shift(1, axis=1)
     return df
 
-
-
-#function that fill Nan values with the appropriate value  
-
 def fill_na_with_above_value(df):
+    """
+    function that fill Nan values with the appropriate value  
+    :param df: data frame - Data frame fo NBA injury report
+    :return: data frame - Data frame of the NBA official injury report with values instead Nan 
+    """    
     for row in range (1,df.shape[0]):
         for col in range(4):
             cell = df.iat[row,col]
@@ -162,9 +158,12 @@ def fill_na_with_above_value(df):
                 df.iat[row,col] = df.iat[row-1,col]
     return df
 
-#removing rows with "NOT YET SUBMITTED" values, which are not informative
-
 def remove_if_not_submitted(df):
+    """
+    function that remove rows with NOT YET SUBMITTED, which are not informative
+    :param df: data frame - the data frame fo NBA injury report
+    :return: data frame - the data frame of the NBA official injury report without rows that contains NOT YET SUBMITTED values
+    """     
     if (df.shape[1]==11):
         col_names = ['Game Date','Game Time','Matchup','Team','Player Name','Category','Reason',
                      'Current Status','Previous Status','Date injury Report','Time injury Report']
@@ -172,16 +171,17 @@ def remove_if_not_submitted(df):
             df = df[df['Category'] != 'NOT YET SUBMITTED']
         else:
             df = df[df['Reason'] != 'NOT YET SUBMITTED']
-        #df = df.drop(df[df.Reason == 'ALL PLAYERS AVAILABLE'].index)
     else:
-        #df = df.drop(df[df['Reason'] == 'NOT YET SUBMITTED'])
-        #df = df.drop(df[df.Reason == 'ALL PLAYERS AVAILABLE'].index)
         df = df[df['Reason'] != 'NOT YET SUBMITTED']
     return df
 
-#making all the relevant changes in the df to make it in the right format
 
-def arrange_df(df): 
+def arrange_df(df):
+    """
+    function that making all the relevant changes in the df to make it in the right format
+    :param df: data frame - the data frame fo NBA injury report
+    :return: data frame - The final and usuful data frame of the NBA official injury report 
+    """      
     df1 = df.iloc[:,:df.shape[1]-2]
     df2 = df.iloc[:,df.shape[1]-2:]    
     df1 = move_cell_right(df1)
@@ -192,28 +192,29 @@ def arrange_df(df):
     return df
 
 
-#difference between two days
-#    :param d1: string - string the. format: ("%Y-%m-%d")
-#    :param d2: string - string the. format: ("%Y-%m-%d")
-#    :return: int - difference between two dates
 
 def days_between(d1, d2):
+    """
+    function that calculate the difference between two dates
+    :param d1: string - string the. format: ("%Y-%m-%d")
+    :param d2: string - string the. format: ("%Y-%m-%d")
+    :return: int - difference between two dates
+    """       
     d1 = datetime.datetime.strptime(d1, "%Y-%m-%d").date()
     d2 = datetime.datetime.strptime(d2, "%Y-%m-%d").date()
     return abs((d2 - d1).days)
 
 
-#function that unifies all the different formats of the NBA official injuries reports between two dates
-#and returns full data frame
-#:param start_date: str - the strat date, fromat: ("%Y-%m-%d")
-#:param end_date: str -  the end date, fromat: ("%Y-%m-%d")
-#:return: data frame - the data frame with all the NBA official injuries reports 
-
 def extarct_official_injury_report(start_date,end_date):
+    """
+    function that Unifies all the different formats of the NBA official injuries reports between two dates
+    and return full data frame.
+    :param start_date: str - the strat date, fromat: ("%Y-%m-%d")
+    :param end_date: str -  the end date, fromat: ("%Y-%m-%d")
+    :return: data frame - the data frame with all the NBA official injuries reports 
+    """
     
-    #there are 5 different formats to the injury reports, all relevant
-    #the comments before each line of code describes the format 
-    
+    # The NBA has 5 formar of reports Over the years.
     """
     2018/12/17 - 2019/11/14 format is:
     [Game Date, Game Time, Matchup, Team, Player Name, Category, Reason, Current Status, Previous Status]
@@ -330,7 +331,7 @@ def extarct_official_injury_report(start_date,end_date):
                           
     return full_df
 
-#main - run the functions and get fully combined injury report
+#main
 start_date = '2018-12-17'
 end_date = '2020-09-04'
 df = extarct_official_injury_report(start_date,end_date)
